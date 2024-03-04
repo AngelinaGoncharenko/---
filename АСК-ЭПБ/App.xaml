@@ -1,0 +1,35 @@
+﻿<Application x:Class="АСК_ЭПБ.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:АСК_ЭПБ"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="GazpromPrimaryColor">#0072BD</Color>
+            <SolidColorBrush x:Key="GazpromPrimaryColorBrush" Color="{StaticResource GazpromPrimaryColor}" />
+
+            <Style TargetType="Label">
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Foreground" Value="{StaticResource GazpromPrimaryColorBrush}"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource GazpromPrimaryColorBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Width" Value="130"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+
+            <Style TargetType="DataGrid">
+                <Setter Property="Background" Value="#E8E8E8"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

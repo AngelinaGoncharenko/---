@@ -1,0 +1,37 @@
+﻿<Window x:Class="АСК_ЭПБ.PrintDiagram"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:АСК_ЭПБ"
+        xmlns:charts="clr-namespace:System.Windows.Forms.DataVisualization.Charting;assembly=System.Windows.Forms.DataVisualization"
+        mc:Ignorable="d"
+        Title="PrintDiagram" Height="450" Width="850" Background="{StaticResource GazpromPrimaryColorBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Label Content="Тип диаграммы:" Foreground="White" FontSize="12" Height="27"/>
+            <ComboBox x:Name="CmbChartTypes" Width="90" Height="20" SelectionChanged="ComboBoxChartType_SelectionChanged"/>
+            <Label Content="Оборудование:" Foreground="White" FontSize="12" Height="27"/>
+            <ComboBox x:Name="CmbEquipment" Width="90" Height="20" />
+            <Button Content="Печать" FontSize="12" Click="Print" Height="40"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+            <Label Content="Количество заявок по разным видам оборудования" Foreground="White" FontSize="15" FontWeight="Bold"/>
+        </StackPanel>
+
+        <WindowsFormsHost Grid.Row="2" Margin="5">
+            <charts:Chart x:Name="ChartService">
+                <charts:Chart.Legends>
+                    <charts:Legend/>
+                </charts:Chart.Legends>
+            </charts:Chart>
+        </WindowsFormsHost>
+    </Grid>
+</Window>

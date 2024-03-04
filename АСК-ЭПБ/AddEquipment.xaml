@@ -1,0 +1,103 @@
+﻿<Window x:Class="АСК_ЭПБ.AddEquipment"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:АСК_ЭПБ"
+        mc:Ignorable="d"
+            Title="АСК-ЭПБ" WindowState="Maximized" Background="{StaticResource GazpromPrimaryColorBrush}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1180"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="500"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Stretch">
+            <Label FontWeight="Bold" FontSize="20" Content="АСК-ЭПБ. Создание заявки по ЭПБ" HorizontalAlignment="Center" Foreground="White" Margin="10"/>
+            <Label FontSize="14" Content="Автоматизированная система контроля экспертизы промышленной безопасности" HorizontalAlignment="Center" Foreground="White" Margin="10,-10,10,10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Left" >
+            <Image Source="C:\Users\angel\source\repos\АСК-ЭПБ\АСК-ЭПБ\Resources\free-icon-configuration-3123169.png" Width="60" Margin="10"/>
+            <TextBlock Text="АСК-ЭПБ" Foreground="White" TextAlignment="Center" FontSize="15" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Left" Height="60">
+            <Button Content="Вернуться на главное окно" Background="#FF6B6B" Foreground="White" Click="Click_EquipmentCancel"/>
+            <Button Content="Удалить оборудование" Click="DeleteEquipment_Click"/>
+            <Button Content="Сформировать диаграмму" Click="Click_Diagram"/>
+                <ComboBox x:Name="statusFilterComboBox" Width="130" Margin="10" SelectionChanged="StatusFilterComboBox_SelectionChanged">
+                <ComboBoxItem Content="Все состояния"/>
+                <ComboBoxItem Content="Рабочее"/>
+                <ComboBoxItem Content="Неисправное"/>
+                <ComboBoxItem Content="В ремонте"/>
+                <ComboBoxItem Content="Плановое обслуживание"/>
+            </ComboBox>
+
+            <!--<Button Content="Редактировать запись" Click="EditEquipment_Click"/>-->
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Label Content=" Поиск:" Margin="10" Foreground="White" FontSize="12" Height="27"/>
+            <TextBox x:Name="searchEquipmentTextBox" Width="130" TextChanged="SearchTextBox_TextChanged" Margin="10" />
+            <Button Content=" Отмена " Margin="10" Background="#FF6B6B" Click="SearchEquipment_Cancel" Foreground="White"/>
+            <Button Content=" Печать " Margin="10" Click="PrintEquipment_Click"/>
+        </StackPanel>
+
+
+        <DataGrid Name="dataGridEquipment" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" Background="#E8E8E8" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код" Binding="{Binding EQUIPMENTID}"/>
+                <DataGridTextColumn Header="Наименование" Binding="{Binding NAME_EQUIPMENT}"/>
+                <DataGridTextColumn Header="Тех.Документация" Binding="{Binding TECHNICAL_DOCUMENTATION}" />
+                <DataGridTextColumn Header="Состояние" Binding="{Binding EquipmentState}"/>
+                <DataGridTextColumn Header="Вид деятельности" Binding="{Binding EquipmentActivity}">
+                </DataGridTextColumn>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Загрузить документ" Click="DownloadDocumentEquipment_Click" Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border BorderBrush="White" BorderThickness="1" Margin="10" Grid.Column="1" Grid.Row="3"  >
+            <!-- Регулируйте Margin по вашему желанию -->
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text=""/>
+                <TextBlock Text=" Добавить Оборудование:" Foreground="White" FontSize="15" FontWeight="Bold"/>
+                <TextBlock Text=""/>
+                <TextBlock Text=""/>
+                <Label Content="Прикрепите тех.документацию на ус-во:" Foreground="White"/>
+                <Button x:Name="FileName" Content="Необходимо добавить документ" Click="Equipment_Document" Height="40" Background="White" Foreground="{StaticResource GazpromPrimaryColorBrush}"/>
+                <Label  Content="Введите название оборудование" Foreground="White"/>
+                <TextBox  Height="20" Width="300" Name="NameEquipment" />
+                <Label Content="Выберите статус состояния оборудования"  Foreground="White"/>
+                <ComboBox Name="ComboBoxEquipment"  Height="20" Width="300"/>
+                <Label Content="Укажите направление деятельности:" Foreground="White"/>
+                <TextBox Height="20" Width="300" Name="EquipmentActivity"/>
+                <TextBlock Text=""/>
+                <TextBlock Text=""/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Отмена" Width="100" Background="#FF6B6B" Foreground="White" Click="Button_Click" />
+                    <Button Content="Сохранить" Width="100" Click="SaveEquipment" Background="White" Foreground="{StaticResource GazpromPrimaryColorBrush}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+
+        <StackPanel Grid.Row="4"  Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="{StaticResource GazpromPrimaryColorBrush}">
+            <Image Source="C:\Users\angel\source\repos\АСК-ЭПБ\АСК-ЭПБ\Resources\free-icon-configuration-3123169.png" Width="60"/>
+            <TextBlock Text="АСК-ЭПБ" Foreground="White" TextAlignment="Center" FontSize="20"/>
+            <TextBlock/>
+            <TextBlock Text="Телефоны: (+7 3532) 73-13-93 — в рабочее время 73-11-04 — круглосуточно&#x0a;Факс: (+7 3532) 73-08-57&#x0a;E-mail: sb@gdo.gazprom.ru&#x0a;" Foreground="White" TextAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Window>

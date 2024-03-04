@@ -1,0 +1,814 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CONTRACTOR">
+          <Key>
+            <PropertyRef Name="CONTRACTORID" />
+          </Key>
+          <Property Name="CONTRACTORID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_CONTRACTOR" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="SUBCONTRACT" Type="varchar" MaxLength="2083" />
+          <Property Name="CONTACTS" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="DOCUMENTATION">
+          <Key>
+            <PropertyRef Name="DOCUMENTATIONID" />
+          </Key>
+          <Property Name="DOCUMENTATIONID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WORK_REQUESTID" Type="int" Nullable="false" />
+          <Property Name="NAME_DOCUMENTATION" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="URL_DOCUMENTATION" Type="varchar" MaxLength="2083" />
+        </EntityType>
+        <EntityType Name="EQUIPMENT">
+          <Key>
+            <PropertyRef Name="EQUIPMENTID" />
+          </Key>
+          <Property Name="EQUIPMENTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_EQUIPMENT" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TECHNICAL_DOCUMENTATION" Type="varchar" MaxLength="2083" />
+          <Property Name="EQUIPMENT_STATEID" Type="int" Nullable="false" />
+          <Property Name="EQUIPMENT_ACTIVITYID" Type="int" Nullable="false" />
+          <Property Name="LAST_DATE_CHECKS" Type="date" />
+        </EntityType>
+        <EntityType Name="EQUIPMENT_ACTIVITY">
+          <Key>
+            <PropertyRef Name="EQUIPMENT_ACTIVITYID" />
+          </Key>
+          <Property Name="EQUIPMENT_ACTIVITYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_EQUIPMENT_ACTIVITY" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EQUIPMENT_STATE">
+          <Key>
+            <PropertyRef Name="EQUIPMENT_STATEID" />
+          </Key>
+          <Property Name="EQUIPMENT_STATEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_EQUIPMENT_STATE" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="REGISTRATION_REQUST">
+          <Key>
+            <PropertyRef Name="REQUSTID" />
+          </Key>
+          <Property Name="REQUSTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMAIL_REQUST" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD_REQUST" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIRSTNAME_REQUST" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LASTNAME_REQUST" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MIDDLENAME_REQUST" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="REQUEST_STATUS">
+          <Key>
+            <PropertyRef Name="REQUEST_STATUSID" />
+          </Key>
+          <Property Name="REQUEST_STATUSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_REQUEST_STATUS" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ROLEID" />
+          </Key>
+          <Property Name="ROLEID" Type="int" Nullable="false" />
+          <Property Name="ROLENAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="USERROLEID" />
+          </Key>
+          <Property Name="USERROLEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USERID" Type="int" />
+          <Property Name="ROLEID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LASTNAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MIDDLENAME" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WORK_REQUEST">
+          <Key>
+            <PropertyRef Name="WORK_REQUESTID" />
+          </Key>
+          <Property Name="WORK_REQUESTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EQUIPMENTID" Type="int" Nullable="false" />
+          <Property Name="WORK_TYPEID" Type="int" Nullable="false" />
+          <Property Name="REQUEST_STATUSID" Type="int" Nullable="false" />
+          <Property Name="CONTRACTORID" Type="int" Nullable="false" />
+          <Property Name="DATA_CREATION" Type="date" Nullable="false" />
+          <Property Name="URL_WORK_REQUEST" Type="varchar" MaxLength="2083" />
+        </EntityType>
+        <EntityType Name="WORK_TYPE">
+          <Key>
+            <PropertyRef Name="WORK_TYPEID" />
+          </Key>
+          <Property Name="WORK_TYPEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME_WORK_TYPE" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DOCUMENTA__WORK___4AB81AF0">
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="1" />
+          <End Role="DOCUMENTATION" Type="Self.DOCUMENTATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORK_REQUEST">
+              <PropertyRef Name="WORK_REQUESTID" />
+            </Principal>
+            <Dependent Role="DOCUMENTATION">
+              <PropertyRef Name="WORK_REQUESTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EQUIPMENT__EQUIP__3B75D760">
+          <End Role="EQUIPMENT_STATE" Type="Self.EQUIPMENT_STATE" Multiplicity="1" />
+          <End Role="EQUIPMENT" Type="Self.EQUIPMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPMENT_STATE">
+              <PropertyRef Name="EQUIPMENT_STATEID" />
+            </Principal>
+            <Dependent Role="EQUIPMENT">
+              <PropertyRef Name="EQUIPMENT_STATEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EQUIPMENT__EQUIP__3C69FB99">
+          <End Role="EQUIPMENT_ACTIVITY" Type="Self.EQUIPMENT_ACTIVITY" Multiplicity="1" />
+          <End Role="EQUIPMENT" Type="Self.EQUIPMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPMENT_ACTIVITY">
+              <PropertyRef Name="EQUIPMENT_ACTIVITYID" />
+            </Principal>
+            <Dependent Role="EQUIPMENT">
+              <PropertyRef Name="EQUIPMENT_ACTIVITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoles__ROLEI__6EF57B66">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ROLEID" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="ROLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoles__USERI__6E01572D">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__CONTR__47DBAE45">
+          <End Role="CONTRACTOR" Type="Self.CONTRACTOR" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRACTOR">
+              <PropertyRef Name="CONTRACTORID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="CONTRACTORID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__EQUIP__44FF419A">
+          <End Role="EQUIPMENT" Type="Self.EQUIPMENT" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPMENT">
+              <PropertyRef Name="EQUIPMENTID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="EQUIPMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__REQUE__46E78A0C">
+          <End Role="REQUEST_STATUS" Type="Self.REQUEST_STATUS" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REQUEST_STATUS">
+              <PropertyRef Name="REQUEST_STATUSID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="REQUEST_STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__WORK___45F365D3">
+          <End Role="WORK_TYPE" Type="Self.WORK_TYPE" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORK_TYPE">
+              <PropertyRef Name="WORK_TYPEID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="WORK_TYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetEquipment" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="EQUIPMENTID" Type="int" Nullable="false" />
+                <Property Name="NAME_EQUIPMENT" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="TECHNICAL_DOCUMENTATION" Type="varchar" MaxLength="2083" />
+                <Property Name="EquipmentState" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="EquipmentActivity" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="LAST_DATE_CHECKS" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetUserInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Код пользователя" Type="int" Nullable="false" />
+                <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="Имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="Отчество" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="Почта" Type="nvarchar" MaxLength="50" Nullable="false" />
+                <Property Name="Роль" Type="nvarchar" MaxLength="50" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="GetWorkRequests" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="WORK_REQUESTID" Type="int" Nullable="false" />
+                <Property Name="DATA_CREATION" Type="date" Nullable="false" />
+                <Property Name="URL_WORK_REQUEST" Type="varchar" MaxLength="2083" />
+                <Property Name="NAME_EQUIPMENT" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="NAME_WORK_TYPE" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="NAME_REQUEST_STATUS" Type="varchar" MaxLength="255" Nullable="false" />
+                <Property Name="NAME_CONTRACTOR" Type="varchar" MaxLength="255" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="CONTRACTOR" EntityType="Self.CONTRACTOR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DOCUMENTATION" EntityType="Self.DOCUMENTATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EQUIPMENT" EntityType="Self.EQUIPMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EQUIPMENT_ACTIVITY" EntityType="Self.EQUIPMENT_ACTIVITY" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EQUIPMENT_STATE" EntityType="Self.EQUIPMENT_STATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REGISTRATION_REQUST" EntityType="Self.REGISTRATION_REQUST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REQUEST_STATUS" EntityType="Self.REQUEST_STATUS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WORK_REQUEST" EntityType="Self.WORK_REQUEST" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WORK_TYPE" EntityType="Self.WORK_TYPE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DOCUMENTA__WORK___4AB81AF0" Association="Self.FK__DOCUMENTA__WORK___4AB81AF0">
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+            <End Role="DOCUMENTATION" EntitySet="DOCUMENTATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EQUIPMENT__EQUIP__3B75D760" Association="Self.FK__EQUIPMENT__EQUIP__3B75D760">
+            <End Role="EQUIPMENT_STATE" EntitySet="EQUIPMENT_STATE" />
+            <End Role="EQUIPMENT" EntitySet="EQUIPMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EQUIPMENT__EQUIP__3C69FB99" Association="Self.FK__EQUIPMENT__EQUIP__3C69FB99">
+            <End Role="EQUIPMENT_ACTIVITY" EntitySet="EQUIPMENT_ACTIVITY" />
+            <End Role="EQUIPMENT" EntitySet="EQUIPMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoles__ROLEI__6EF57B66" Association="Self.FK__UserRoles__ROLEI__6EF57B66">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoles__USERI__6E01572D" Association="Self.FK__UserRoles__USERI__6E01572D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__CONTR__47DBAE45" Association="Self.FK__WORK_REQU__CONTR__47DBAE45">
+            <End Role="CONTRACTOR" EntitySet="CONTRACTOR" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__EQUIP__44FF419A" Association="Self.FK__WORK_REQU__EQUIP__44FF419A">
+            <End Role="EQUIPMENT" EntitySet="EQUIPMENT" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__REQUE__46E78A0C" Association="Self.FK__WORK_REQU__REQUE__46E78A0C">
+            <End Role="REQUEST_STATUS" EntitySet="REQUEST_STATUS" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__WORK___45F365D3" Association="Self.FK__WORK_REQU__WORK___45F365D3">
+            <End Role="WORK_TYPE" EntitySet="WORK_TYPE" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="GetEquipment_Result">
+          <Property Name="EQUIPMENTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME_EQUIPMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TECHNICAL_DOCUMENTATION" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" />
+          <Property Name="EquipmentState" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EquipmentActivity" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LAST_DATE_CHECKS" Type="DateTime" />
+        </ComplexType>
+        <ComplexType Name="GetUserInfo_Result">
+          <Property Name="Код_пользователя" Type="Int32" Nullable="false" />
+          <Property Name="Фамилия" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отчество" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Почта" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Роль" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetWorkRequests_Result">
+          <Property Name="WORK_REQUESTID" Type="Int32" Nullable="false" />
+          <Property Name="DATA_CREATION" Type="DateTime" Nullable="false" />
+          <Property Name="URL_WORK_REQUEST" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" />
+          <Property Name="NAME_EQUIPMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_WORK_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_REQUEST_STATUS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAME_CONTRACTOR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="CONTRACTOR">
+          <Key>
+            <PropertyRef Name="CONTRACTORID" />
+          </Key>
+          <Property Name="CONTRACTORID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_CONTRACTOR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SUBCONTRACT" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" />
+          <Property Name="CONTACTS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="WORK_REQUEST" Relationship="Self.FK__WORK_REQU__CONTR__47DBAE45" FromRole="CONTRACTOR" ToRole="WORK_REQUEST" />
+        </EntityType>
+        <EntityType Name="DOCUMENTATION">
+          <Key>
+            <PropertyRef Name="DOCUMENTATIONID" />
+          </Key>
+          <Property Name="DOCUMENTATIONID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WORK_REQUESTID" Type="Int32" Nullable="false" />
+          <Property Name="NAME_DOCUMENTATION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="URL_DOCUMENTATION" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="WORK_REQUEST" Relationship="Self.FK__DOCUMENTA__WORK___4AB81AF0" FromRole="DOCUMENTATION" ToRole="WORK_REQUEST" />
+        </EntityType>
+        <EntityType Name="EQUIPMENT">
+          <Key>
+            <PropertyRef Name="EQUIPMENTID" />
+          </Key>
+          <Property Name="EQUIPMENTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_EQUIPMENT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TECHNICAL_DOCUMENTATION" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" />
+          <Property Name="EQUIPMENT_STATEID" Type="Int32" Nullable="false" />
+          <Property Name="EQUIPMENT_ACTIVITYID" Type="Int32" Nullable="false" />
+          <Property Name="LAST_DATE_CHECKS" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="EQUIPMENT_STATE" Relationship="Self.FK__EQUIPMENT__EQUIP__3B75D760" FromRole="EQUIPMENT" ToRole="EQUIPMENT_STATE" />
+          <NavigationProperty Name="EQUIPMENT_ACTIVITY" Relationship="Self.FK__EQUIPMENT__EQUIP__3C69FB99" FromRole="EQUIPMENT" ToRole="EQUIPMENT_ACTIVITY" />
+          <NavigationProperty Name="WORK_REQUEST" Relationship="Self.FK__WORK_REQU__EQUIP__44FF419A" FromRole="EQUIPMENT" ToRole="WORK_REQUEST" />
+        </EntityType>
+        <EntityType Name="EQUIPMENT_ACTIVITY">
+          <Key>
+            <PropertyRef Name="EQUIPMENT_ACTIVITYID" />
+          </Key>
+          <Property Name="EQUIPMENT_ACTIVITYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_EQUIPMENT_ACTIVITY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EQUIPMENT" Relationship="Self.FK__EQUIPMENT__EQUIP__3C69FB99" FromRole="EQUIPMENT_ACTIVITY" ToRole="EQUIPMENT" />
+        </EntityType>
+        <EntityType Name="EQUIPMENT_STATE">
+          <Key>
+            <PropertyRef Name="EQUIPMENT_STATEID" />
+          </Key>
+          <Property Name="EQUIPMENT_STATEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_EQUIPMENT_STATE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EQUIPMENT" Relationship="Self.FK__EQUIPMENT__EQUIP__3B75D760" FromRole="EQUIPMENT_STATE" ToRole="EQUIPMENT" />
+        </EntityType>
+        <EntityType Name="REGISTRATION_REQUST">
+          <Key>
+            <PropertyRef Name="REQUSTID" />
+          </Key>
+          <Property Name="REQUSTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL_REQUST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD_REQUST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIRSTNAME_REQUST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LASTNAME_REQUST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MIDDLENAME_REQUST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="REQUEST_STATUS">
+          <Key>
+            <PropertyRef Name="REQUEST_STATUSID" />
+          </Key>
+          <Property Name="REQUEST_STATUSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_REQUEST_STATUS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WORK_REQUEST" Relationship="Self.FK__WORK_REQU__REQUE__46E78A0C" FromRole="REQUEST_STATUS" ToRole="WORK_REQUEST" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="ROLEID" />
+          </Key>
+          <Property Name="ROLEID" Type="Int32" Nullable="false" />
+          <Property Name="ROLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRoles__ROLEI__6EF57B66" FromRole="Roles" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="USERROLEID" />
+          </Key>
+          <Property Name="USERROLEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USERID" Type="Int32" />
+          <Property Name="ROLEID" Type="Int32" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK__UserRoles__ROLEI__6EF57B66" FromRole="UserRoles" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__UserRoles__USERI__6E01572D" FromRole="UserRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="USERID" />
+          </Key>
+          <Property Name="USERID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FIRSTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LASTNAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MIDDLENAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK__UserRoles__USERI__6E01572D" FromRole="Users" ToRole="UserRoles" />
+        </EntityType>
+        <EntityType Name="WORK_REQUEST">
+          <Key>
+            <PropertyRef Name="WORK_REQUESTID" />
+          </Key>
+          <Property Name="WORK_REQUESTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EQUIPMENTID" Type="Int32" Nullable="false" />
+          <Property Name="WORK_TYPEID" Type="Int32" Nullable="false" />
+          <Property Name="REQUEST_STATUSID" Type="Int32" Nullable="false" />
+          <Property Name="CONTRACTORID" Type="Int32" Nullable="false" />
+          <Property Name="DATA_CREATION" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="URL_WORK_REQUEST" Type="String" MaxLength="2083" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CONTRACTOR" Relationship="Self.FK__WORK_REQU__CONTR__47DBAE45" FromRole="WORK_REQUEST" ToRole="CONTRACTOR" />
+          <NavigationProperty Name="DOCUMENTATION" Relationship="Self.FK__DOCUMENTA__WORK___4AB81AF0" FromRole="WORK_REQUEST" ToRole="DOCUMENTATION" />
+          <NavigationProperty Name="EQUIPMENT" Relationship="Self.FK__WORK_REQU__EQUIP__44FF419A" FromRole="WORK_REQUEST" ToRole="EQUIPMENT" />
+          <NavigationProperty Name="REQUEST_STATUS" Relationship="Self.FK__WORK_REQU__REQUE__46E78A0C" FromRole="WORK_REQUEST" ToRole="REQUEST_STATUS" />
+          <NavigationProperty Name="WORK_TYPE" Relationship="Self.FK__WORK_REQU__WORK___45F365D3" FromRole="WORK_REQUEST" ToRole="WORK_TYPE" />
+        </EntityType>
+        <EntityType Name="WORK_TYPE">
+          <Key>
+            <PropertyRef Name="WORK_TYPEID" />
+          </Key>
+          <Property Name="WORK_TYPEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME_WORK_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="WORK_REQUEST" Relationship="Self.FK__WORK_REQU__WORK___45F365D3" FromRole="WORK_TYPE" ToRole="WORK_REQUEST" />
+        </EntityType>
+        <Association Name="FK__WORK_REQU__CONTR__47DBAE45">
+          <End Role="CONTRACTOR" Type="Self.CONTRACTOR" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CONTRACTOR">
+              <PropertyRef Name="CONTRACTORID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="CONTRACTORID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DOCUMENTA__WORK___4AB81AF0">
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="1" />
+          <End Role="DOCUMENTATION" Type="Self.DOCUMENTATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORK_REQUEST">
+              <PropertyRef Name="WORK_REQUESTID" />
+            </Principal>
+            <Dependent Role="DOCUMENTATION">
+              <PropertyRef Name="WORK_REQUESTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EQUIPMENT__EQUIP__3B75D760">
+          <End Role="EQUIPMENT_STATE" Type="Self.EQUIPMENT_STATE" Multiplicity="1" />
+          <End Role="EQUIPMENT" Type="Self.EQUIPMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPMENT_STATE">
+              <PropertyRef Name="EQUIPMENT_STATEID" />
+            </Principal>
+            <Dependent Role="EQUIPMENT">
+              <PropertyRef Name="EQUIPMENT_STATEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EQUIPMENT__EQUIP__3C69FB99">
+          <End Role="EQUIPMENT_ACTIVITY" Type="Self.EQUIPMENT_ACTIVITY" Multiplicity="1" />
+          <End Role="EQUIPMENT" Type="Self.EQUIPMENT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPMENT_ACTIVITY">
+              <PropertyRef Name="EQUIPMENT_ACTIVITYID" />
+            </Principal>
+            <Dependent Role="EQUIPMENT">
+              <PropertyRef Name="EQUIPMENT_ACTIVITYID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__EQUIP__44FF419A">
+          <End Role="EQUIPMENT" Type="Self.EQUIPMENT" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EQUIPMENT">
+              <PropertyRef Name="EQUIPMENTID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="EQUIPMENTID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__REQUE__46E78A0C">
+          <End Role="REQUEST_STATUS" Type="Self.REQUEST_STATUS" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="REQUEST_STATUS">
+              <PropertyRef Name="REQUEST_STATUSID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="REQUEST_STATUSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoles__ROLEI__6EF57B66">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="ROLEID" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="ROLEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__UserRoles__USERI__6E01572D">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="USERID" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="USERID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__WORK_REQU__WORK___45F365D3">
+          <End Role="WORK_TYPE" Type="Self.WORK_TYPE" Multiplicity="1" />
+          <End Role="WORK_REQUEST" Type="Self.WORK_REQUEST" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WORK_TYPE">
+              <PropertyRef Name="WORK_TYPEID" />
+            </Principal>
+            <Dependent Role="WORK_REQUEST">
+              <PropertyRef Name="WORK_TYPEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CONTRACTOR" EntityType="Self.CONTRACTOR" />
+          <EntitySet Name="DOCUMENTATION" EntityType="Self.DOCUMENTATION" />
+          <EntitySet Name="EQUIPMENT" EntityType="Self.EQUIPMENT" />
+          <EntitySet Name="EQUIPMENT_ACTIVITY" EntityType="Self.EQUIPMENT_ACTIVITY" />
+          <EntitySet Name="EQUIPMENT_STATE" EntityType="Self.EQUIPMENT_STATE" />
+          <EntitySet Name="REGISTRATION_REQUST" EntityType="Self.REGISTRATION_REQUST" />
+          <EntitySet Name="REQUEST_STATUS" EntityType="Self.REQUEST_STATUS" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="WORK_REQUEST" EntityType="Self.WORK_REQUEST" />
+          <EntitySet Name="WORK_TYPE" EntityType="Self.WORK_TYPE" />
+          <AssociationSet Name="FK__WORK_REQU__CONTR__47DBAE45" Association="Self.FK__WORK_REQU__CONTR__47DBAE45">
+            <End Role="CONTRACTOR" EntitySet="CONTRACTOR" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DOCUMENTA__WORK___4AB81AF0" Association="Self.FK__DOCUMENTA__WORK___4AB81AF0">
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+            <End Role="DOCUMENTATION" EntitySet="DOCUMENTATION" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EQUIPMENT__EQUIP__3B75D760" Association="Self.FK__EQUIPMENT__EQUIP__3B75D760">
+            <End Role="EQUIPMENT_STATE" EntitySet="EQUIPMENT_STATE" />
+            <End Role="EQUIPMENT" EntitySet="EQUIPMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EQUIPMENT__EQUIP__3C69FB99" Association="Self.FK__EQUIPMENT__EQUIP__3C69FB99">
+            <End Role="EQUIPMENT_ACTIVITY" EntitySet="EQUIPMENT_ACTIVITY" />
+            <End Role="EQUIPMENT" EntitySet="EQUIPMENT" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__EQUIP__44FF419A" Association="Self.FK__WORK_REQU__EQUIP__44FF419A">
+            <End Role="EQUIPMENT" EntitySet="EQUIPMENT" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__REQUE__46E78A0C" Association="Self.FK__WORK_REQU__REQUE__46E78A0C">
+            <End Role="REQUEST_STATUS" EntitySet="REQUEST_STATUS" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoles__ROLEI__6EF57B66" Association="Self.FK__UserRoles__ROLEI__6EF57B66">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__UserRoles__USERI__6E01572D" Association="Self.FK__UserRoles__USERI__6E01572D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__WORK_REQU__WORK___45F365D3" Association="Self.FK__WORK_REQU__WORK___45F365D3">
+            <End Role="WORK_TYPE" EntitySet="WORK_TYPE" />
+            <End Role="WORK_REQUEST" EntitySet="WORK_REQUEST" />
+          </AssociationSet>
+          <FunctionImport Name="GetEquipment" IsComposable="true" ReturnType="Collection(Model.GetEquipment_Result)" />
+          <FunctionImport Name="GetUserInfo" IsComposable="true" ReturnType="Collection(Model.GetUserInfo_Result)" />
+          <FunctionImport Name="GetWorkRequests" IsComposable="true" ReturnType="Collection(Model.GetWorkRequests_Result)" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="CONTRACTOR">
+            <EntityTypeMapping TypeName="Model.CONTRACTOR">
+              <MappingFragment StoreEntitySet="CONTRACTOR">
+                <ScalarProperty Name="CONTRACTORID" ColumnName="CONTRACTORID" />
+                <ScalarProperty Name="NAME_CONTRACTOR" ColumnName="NAME_CONTRACTOR" />
+                <ScalarProperty Name="SUBCONTRACT" ColumnName="SUBCONTRACT" />
+                <ScalarProperty Name="CONTACTS" ColumnName="CONTACTS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DOCUMENTATION">
+            <EntityTypeMapping TypeName="Model.DOCUMENTATION">
+              <MappingFragment StoreEntitySet="DOCUMENTATION">
+                <ScalarProperty Name="DOCUMENTATIONID" ColumnName="DOCUMENTATIONID" />
+                <ScalarProperty Name="WORK_REQUESTID" ColumnName="WORK_REQUESTID" />
+                <ScalarProperty Name="NAME_DOCUMENTATION" ColumnName="NAME_DOCUMENTATION" />
+                <ScalarProperty Name="URL_DOCUMENTATION" ColumnName="URL_DOCUMENTATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EQUIPMENT">
+            <EntityTypeMapping TypeName="Model.EQUIPMENT">
+              <MappingFragment StoreEntitySet="EQUIPMENT">
+                <ScalarProperty Name="EQUIPMENTID" ColumnName="EQUIPMENTID" />
+                <ScalarProperty Name="NAME_EQUIPMENT" ColumnName="NAME_EQUIPMENT" />
+                <ScalarProperty Name="TECHNICAL_DOCUMENTATION" ColumnName="TECHNICAL_DOCUMENTATION" />
+                <ScalarProperty Name="EQUIPMENT_STATEID" ColumnName="EQUIPMENT_STATEID" />
+                <ScalarProperty Name="EQUIPMENT_ACTIVITYID" ColumnName="EQUIPMENT_ACTIVITYID" />
+                <ScalarProperty Name="LAST_DATE_CHECKS" ColumnName="LAST_DATE_CHECKS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EQUIPMENT_ACTIVITY">
+            <EntityTypeMapping TypeName="Model.EQUIPMENT_ACTIVITY">
+              <MappingFragment StoreEntitySet="EQUIPMENT_ACTIVITY">
+                <ScalarProperty Name="EQUIPMENT_ACTIVITYID" ColumnName="EQUIPMENT_ACTIVITYID" />
+                <ScalarProperty Name="NAME_EQUIPMENT_ACTIVITY" ColumnName="NAME_EQUIPMENT_ACTIVITY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EQUIPMENT_STATE">
+            <EntityTypeMapping TypeName="Model.EQUIPMENT_STATE">
+              <MappingFragment StoreEntitySet="EQUIPMENT_STATE">
+                <ScalarProperty Name="EQUIPMENT_STATEID" ColumnName="EQUIPMENT_STATEID" />
+                <ScalarProperty Name="NAME_EQUIPMENT_STATE" ColumnName="NAME_EQUIPMENT_STATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REGISTRATION_REQUST">
+            <EntityTypeMapping TypeName="Model.REGISTRATION_REQUST">
+              <MappingFragment StoreEntitySet="REGISTRATION_REQUST">
+                <ScalarProperty Name="REQUSTID" ColumnName="REQUSTID" />
+                <ScalarProperty Name="EMAIL_REQUST" ColumnName="EMAIL_REQUST" />
+                <ScalarProperty Name="PASSWORD_REQUST" ColumnName="PASSWORD_REQUST" />
+                <ScalarProperty Name="FIRSTNAME_REQUST" ColumnName="FIRSTNAME_REQUST" />
+                <ScalarProperty Name="LASTNAME_REQUST" ColumnName="LASTNAME_REQUST" />
+                <ScalarProperty Name="MIDDLENAME_REQUST" ColumnName="MIDDLENAME_REQUST" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REQUEST_STATUS">
+            <EntityTypeMapping TypeName="Model.REQUEST_STATUS">
+              <MappingFragment StoreEntitySet="REQUEST_STATUS">
+                <ScalarProperty Name="REQUEST_STATUSID" ColumnName="REQUEST_STATUSID" />
+                <ScalarProperty Name="NAME_REQUEST_STATUS" ColumnName="NAME_REQUEST_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Model.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
+                <ScalarProperty Name="ROLENAME" ColumnName="ROLENAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="Model.UserRoles">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="USERROLEID" ColumnName="USERROLEID" />
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="ROLEID" ColumnName="ROLEID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Model.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="FIRSTNAME" ColumnName="FIRSTNAME" />
+                <ScalarProperty Name="LASTNAME" ColumnName="LASTNAME" />
+                <ScalarProperty Name="MIDDLENAME" ColumnName="MIDDLENAME" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WORK_REQUEST">
+            <EntityTypeMapping TypeName="Model.WORK_REQUEST">
+              <MappingFragment StoreEntitySet="WORK_REQUEST">
+                <ScalarProperty Name="WORK_REQUESTID" ColumnName="WORK_REQUESTID" />
+                <ScalarProperty Name="EQUIPMENTID" ColumnName="EQUIPMENTID" />
+                <ScalarProperty Name="WORK_TYPEID" ColumnName="WORK_TYPEID" />
+                <ScalarProperty Name="REQUEST_STATUSID" ColumnName="REQUEST_STATUSID" />
+                <ScalarProperty Name="CONTRACTORID" ColumnName="CONTRACTORID" />
+                <ScalarProperty Name="DATA_CREATION" ColumnName="DATA_CREATION" />
+                <ScalarProperty Name="URL_WORK_REQUEST" ColumnName="URL_WORK_REQUEST" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WORK_TYPE">
+            <EntityTypeMapping TypeName="Model.WORK_TYPE">
+              <MappingFragment StoreEntitySet="WORK_TYPE">
+                <ScalarProperty Name="WORK_TYPEID" ColumnName="WORK_TYPEID" />
+                <ScalarProperty Name="NAME_WORK_TYPE" ColumnName="NAME_WORK_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="Хранилище Model.GetEquipment" FunctionImportName="GetEquipment">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetEquipment_Result">
+                <ScalarProperty Name="EQUIPMENTID" ColumnName="EQUIPMENTID" />
+                <ScalarProperty Name="NAME_EQUIPMENT" ColumnName="NAME_EQUIPMENT" />
+                <ScalarProperty Name="TECHNICAL_DOCUMENTATION" ColumnName="TECHNICAL_DOCUMENTATION" />
+                <ScalarProperty Name="EquipmentState" ColumnName="EquipmentState" />
+                <ScalarProperty Name="EquipmentActivity" ColumnName="EquipmentActivity" />
+                <ScalarProperty Name="LAST_DATE_CHECKS" ColumnName="LAST_DATE_CHECKS" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище Model.GetUserInfo" FunctionImportName="GetUserInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetUserInfo_Result">
+                <ScalarProperty Name="Код_пользователя" ColumnName="Код пользователя" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Почта" ColumnName="Почта" />
+                <ScalarProperty Name="Роль" ColumnName="Роль" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="Хранилище Model.GetWorkRequests" FunctionImportName="GetWorkRequests">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Model.GetWorkRequests_Result">
+                <ScalarProperty Name="WORK_REQUESTID" ColumnName="WORK_REQUESTID" />
+                <ScalarProperty Name="DATA_CREATION" ColumnName="DATA_CREATION" />
+                <ScalarProperty Name="URL_WORK_REQUEST" ColumnName="URL_WORK_REQUEST" />
+                <ScalarProperty Name="NAME_EQUIPMENT" ColumnName="NAME_EQUIPMENT" />
+                <ScalarProperty Name="NAME_WORK_TYPE" ColumnName="NAME_WORK_TYPE" />
+                <ScalarProperty Name="NAME_REQUEST_STATUS" ColumnName="NAME_REQUEST_STATUS" />
+                <ScalarProperty Name="NAME_CONTRACTOR" ColumnName="NAME_CONTRACTOR" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

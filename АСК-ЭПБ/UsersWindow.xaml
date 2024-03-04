@@ -1,0 +1,96 @@
+﻿<Window x:Class="АСК_ЭПБ.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:АСК_ЭПБ"
+        mc:Ignorable="d"
+        Title="АСК-ЭПБ. Создание заявки по ЭПБ"  Background="{StaticResource GazpromPrimaryColorBrush}" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="400" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Height="60" Background="White">
+            <Button Content="Вернуться на главное окно" Background="#FF6B6B" Foreground="White" Click="Click_UsersCancel"/>
+            <Button Content="Удалить пользователя" Click="DeleteUser_Click"/>
+            <ComboBox x:Name="roleFilterComboBox" Width="130" Margin="10" SelectionChanged="RoleFilterComboBox_SelectionChanged">
+                <ComboBoxItem Content="Все роли"/>
+                <ComboBoxItem Content="Администратор"/>
+                <ComboBoxItem Content="Директор"/>
+                <ComboBoxItem Content="Оператор"/>
+            </ComboBox>
+
+        </StackPanel>
+        <StackPanel  Background="White" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch"/>
+            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Label Content=" Поиск:" Margin="10"  Foreground="{StaticResource GazpromPrimaryColorBrush}" FontSize="12" Height="27"/>
+            <TextBox x:Name="searchUsersTextBox" Width="130" TextChanged="SearchTextBox_TextChanged" Margin="10" />
+            <Button Content=" Отмена " Margin="10" Background="#FF6B6B" Click="SearchUsers_Cancel" Foreground="White"/>
+            <Button Content=" Печать " Margin="10" Click="PrintUsers_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.Column="0">
+            <TextBlock Text=""/>
+            <TextBlock Text="Пользователи" Foreground="White" FontSize="15" FontWeight="Bold" Margin="10"/>
+            <TextBlock Text=""/>
+            <TextBlock Text=""/>
+            <DataGrid Name="dataGridUsers" Foreground="Black" VerticalAlignment="Top" AutoGenerateColumns="False" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Код" Binding="{Binding Код_пользователя}"/>
+                    <DataGridTextColumn Header="Фамилия" Binding="{Binding Фамилия}"/>
+                    <DataGridTextColumn Header="Имя" Binding="{Binding Имя}" />
+                    <DataGridTextColumn Header="Отчество" Binding="{Binding Отчество}"/>
+                    <DataGridTextColumn Header="Почта" Binding="{Binding Почта}"/>
+                    <DataGridTextColumn Header="Роль" Binding="{Binding Роль}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <Border  BorderBrush="White" BorderThickness="3" Margin="10" Grid.Column="1" Grid.Row="2"  HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text=""/>
+                <TextBlock Text=" Заявки на регистрацию:" Foreground="White" FontSize="15" FontWeight="Bold"/>
+                <TextBlock Text=""/>
+                <TextBlock Text=""/>
+                <DataGrid Name="dataGridUserRole" Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" AutoGenerateColumns="False"  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Код" Binding="{Binding REQUSTID}"/>
+                        <DataGridTextColumn Header="Фамилия" Binding="{Binding LASTNAME_REQUST}"/>
+                        <DataGridTextColumn Header="Имя" Binding="{Binding FIRSTNAME_REQUST}" />
+                        <DataGridTextColumn Header="Отчество" Binding="{Binding MIDDLENAME_REQUST}"/>
+                        <DataGridTextColumn Header="Почта" Binding="{Binding EMAIL_REQUST}"/>
+                        <DataGridTemplateColumn Header="Роль">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox x:Name="roleComboBox" Loaded="RoleComboBox_Loaded"
+                      DisplayMemberPath="ROLENAME" SelectedValuePath="ROLENAME" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Одобрить" Click="ApproveRegistration_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn>
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Удалить" Click="DeleteRegistration_Click"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

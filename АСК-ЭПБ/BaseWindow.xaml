@@ -1,0 +1,77 @@
+﻿<Window x:Class="АСК_ЭПБ.BaseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:АСК_ЭПБ"
+        mc:Ignorable="d"
+        Title="АСК-ЭПБ. Создание заявки по ЭПБ" WindowState="Maximized" Background="{StaticResource GazpromPrimaryColorBrush}">
+    <Grid Height="823" Width="1500">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="500"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Шапка -->
+        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Stretch">
+            <Label FontWeight="Bold" FontSize="20" Content="АСК-ЭПБ. Создание заявки по ЭПБ" HorizontalAlignment="Center" Foreground="White" Margin="10"/>
+            <Label FontSize="14" Content="Автоматизированная система контроля экспертизы промышленной безопасности" HorizontalAlignment="Center" Foreground="White" Margin="10,-10,10,10"/>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Left">
+            <Image Source="C:\Users\angel\source\repos\АСК-ЭПБ\АСК-ЭПБ\Resources\free-icon-configuration-3123169.png" Width="60" Margin="10"/>
+            <TextBlock Text="АСК-ЭПБ" Foreground="White" TextAlignment="Center" FontSize="15" />
+        </StackPanel>
+
+        <!-- Меню с кнопками -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Button Content="Выйти из приложения" Background="#FF6B6B" Click="Output_Cancel" Foreground="White"/>
+            <Button x:Name="btnCreate" Content=" Создать заявку " Click="Create_Click"/>
+            <Button x:Name="btnEquipment" Content=" Оборудование " Click="Equipment_Click"/>
+            <Button x:Name="btnContractor" Content=" Подрядчики " Click="Contractor_Click"/>
+            <Button x:Name="btnUser" Content=" Пользователи " Click="User_Click"/>
+            <Button x:Name="btnDelete" Content=" Удалить заявку" Click="Delete_Click"/>
+
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Menu>
+                <MenuItem Header="Фильтр" Height="20" Width="130" Foreground="{StaticResource GazpromPrimaryColorBrush}">
+                    <MenuItem Header="Оборудование" Click="FilterEquipment_Click"/>
+                    <MenuItem Header="Подрядчик" Click="FilterContractor_Click"/>
+                </MenuItem>
+            </Menu>
+            <Label Content=" Поиск:" Margin="10" Foreground="White" FontSize="12" Height="27"/>
+            <TextBox x:Name="searchTextBox" Width="130" TextChanged="SearchTextBox_TextChanged" Margin="10" />
+            <Button Content=" Отмена " Margin="10" Background="#FF6B6B" Click="Search_Cancel" Foreground="White"/>
+            <Button Content=" Печать " Margin="10" Click="ExportToExcel"/>
+        </StackPanel>
+
+        <!-- Основной контент -->
+        <DataGrid Name="dataGrid" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" AutoGenerateColumns="False" Background="#E8E8E8" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Код заявки" Binding="{Binding WORK_REQUESTID}"/>
+                <DataGridTextColumn Header="Дата создания" Binding="{Binding DATA_CREATION}"/>
+                <DataGridTextColumn Header="Заявка" Binding="{Binding URL_WORK_REQUEST}" />
+                <DataGridTextColumn Header="Оборудование" Binding="{Binding NAME_EQUIPMENT}"/>
+                <DataGridTextColumn Header="Вид работ" Binding="{Binding NAME_WORK_TYPE}"/>
+                <DataGridTextColumn Header="Статус заявки" Binding="{Binding NAME_REQUEST_STATUS}"/>
+                <DataGridTextColumn Header="Подрядчик" Binding="{Binding NAME_CONTRACTOR}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Загрузить документ" Click="DownloadDocument_Click" Margin="2"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="3" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="C:\Users\angel\source\repos\АСК-ЭПБ\АСК-ЭПБ\Resources\free-icon-configuration-3123169.png" Width="60"/>
+            <TextBlock Text="АСК-ЭПБ" Foreground="White" TextAlignment="Center" FontSize="20"/>
+            <TextBlock/>
+            <TextBlock Text="Телефоны: (+7 3532) 73-13-93 — в рабочее время 73-11-04 — круглосуточно&#x0a;Факс: (+7 3532) 73-08-57&#x0a;E-mail: sb@gdo.gazprom.ru&#x0a;" Foreground="White" TextAlignment="Center" />
+        </StackPanel>
+    </Grid>
+</Window>
